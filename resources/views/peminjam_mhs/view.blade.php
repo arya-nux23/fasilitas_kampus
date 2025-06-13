@@ -1,25 +1,41 @@
 @extends('layout.temp_mhs')
 @section('content')
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Sukses!</strong> {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+
     <div class="card bg-white border-0 rounded-10 mb-4">
         <div class="card-body p-4">
-             <div class="alert alert-warning mb-4" role="alert">
-             <h4 class="fw-semibold fs-18 mb-sm-0">Peminjam Hari ini</h4>
+            <div class="alert alert-warning mb-4" role="alert">
+                <h4 class="fw-semibold fs-18 mb-sm-0">Peminjam Hari ini</h4>
 
-                    <i class="bi bi-exclamation-circle"></i>
-                    Data di bawah hanya akan tampil data peminjaman pada hari ini saja. Jika ingin
-                    melihat riwayat data peminjaman yang sudah anda pinjam bisa pergi ke menu
-                    riwayat peminjaman pada daftar menu.
-                    <div class="fw-bold pt-3">
-                        Diharapkan setiap peminjaman yang sudah selesai mohon lakukan pengubahan
-                        data pada tombol Pengembalian.
-                    </div>
+                <i class="bi bi-exclamation-circle"></i>
+                Data di bawah hanya akan tampil data peminjaman pada hari ini saja. Jika ingin
+                melihat riwayat data peminjaman yang sudah anda pinjam bisa pergi ke menu
+                riwayat peminjaman pada daftar menu.
+                <div class="fw-bold pt-3">
+                    Diharapkan setiap peminjaman yang sudah selesai mohon lakukan pengubahan
+                    data pada tombol Pengembalian.
                 </div>
+            </div>
             <div class="default-table-area members-list">
                 <div class="table-responsive">
                     <table class="table align-middle" id="myTable">
@@ -40,7 +56,7 @@
                                     </div>
                                 </th>
                                 <th scope="col">Nama Mahasiswa</th>
-                                <th scope="col">Nama Alat</th>
+                                <th scope="col">Nama Fasilitas</th>
                                 <th scope="col">Tangal</th>
                                 <th scope="col">Admin</th>
                                 <th scope="col">Actions</th>
@@ -51,11 +67,11 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td><span class="badge text-bg-primary">{{ $item->mahasiswa->nama_mhs }}</span></td>
-                                    <td>{{ $item->alat->nama_alat }}</td>
+                                    <td>{{ $item->fasilitas->nama_fasilitas }}</td>
                                     <td>{{ $item->date }}</td>
                                     <td>
                                         @if ($item->returned_at)
-                                            <span class="badge text-bg-secondary" title="Sudah dikonfirmasi oleh admin">
+                                            <span class="badge text-bg-primary" title="Sudah dikonfirmasi oleh admin">
                                                 <i class="ri-checkbox-circle-line"></i> {{-- icon centang --}}
                                             </span>
                                         @else
@@ -71,10 +87,9 @@
                                                 <i class="ri-eye-line"></i>
                                             </button>
                                             @if ($item->status_pengajuan !== 'pending' && !$item->returned_at)
-                                                <!-- Tombol kembalikan hanya muncul jika sudah diajukan tapi belum dikonfirmasi -->
+                                                <!-- Tombol Ajukan hanya muncul jika sudah diajukan tapi belum dikonfirmasi -->
                                                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#KembaliModal{{ $item->id_peminjam }}"
-                                                    title="kembalikan">
+                                                    data-bs-target="#KembaliModal{{ $item->id_peminjam }}" title="Ajukan">
                                                     <i class="ri-checkbox-circle-line"></i>
                                                 </button>
                                             @endif
@@ -101,14 +116,15 @@
                                                     @csrf
                                                     <!-- Dropdown untuk nama alat -->
                                                     <div class="mb-3">
-                                                        <label for="alat_id" class="form-label">Nama Alat</label>
-                                                        <select class="form-select" id="alat_id" name="alat" required>
-                                                            <option value="" disabled selected>Pilih Alat
+                                                        <label for="fasilitas_id" class="form-label">Nama Fasilitas</label>
+                                                        <select class="form-select" id="fasilitas_id" name="fasilitas"
+                                                            required>
+                                                            <option value="" disabled selected>Pilih Fasilitas
                                                             </option>
-                                                            @foreach ($alat as $a)
-                                                                <option value="{{ $a->id_alat }}"
-                                                                    {{ $item->alat_id == $a->id_alat ? 'selected' : '' }}>
-                                                                    {{ $a->nama_alat }}
+                                                            @foreach ($fasilitas as $a)
+                                                                <option value="{{ $a->id_fasilitas }}"
+                                                                    {{ $item->fasilitas_id == $a->id_fasilitas ? 'selected' : '' }}>
+                                                                    {{ $a->nama_fasilitas }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -136,7 +152,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5">Kembalikan Peminjaman</h1>
+                                                <h1 class="modal-title fs-5">Ajukan Peminjaman</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -148,10 +164,10 @@
                                                         <div class="col-md-12">
                                                             <div class="alert alert-primary">
                                                                 Anda akan mengubah status peminjaman ini menjadi 'sudah
-                                                                kembali'. Kolom 'jam kembali'
+                                                                di ajukan'. Kolom 'jam di ajukan'
                                                                 akan otomatis
                                                                 diisi dengan waktu setelah Anda mengeklik tombol
-                                                                'kembalikan'. Mohon isi kolom catatan
+                                                                'di ajukankan'. Mohon isi kolom catatan
                                                                 jika ada hal yang
                                                                 ingin disampaikan.
                                                             </div>
@@ -167,14 +183,13 @@
                                                         <button type="button" class="btn btn-secondary close-button"
                                                             data-bs-dismiss="modal">Tutup</button>
                                                         <button type="submit"
-                                                            class="btn btn-success btn-returned">Kembalikan</button>
+                                                            class="btn btn-success btn-returned">Pinjam</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- akhir modal kembalian --}}
                                 {{-- modal awal detail data peminjam --}}
                                 <div class="modal fade" id="detailPeminjam{{ $item->id_peminjam }}" tabindex="-1"
                                     aria-hidden="true">
@@ -226,8 +241,17 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="mb-3 text-center">
+                                                                    <label class="form-label d-block">Gambar Fasilitas</label>
+                                                                    <img src="{{ asset('storage/' . $item->fasilitas->foto) }}"
+                                                                        alt="Foto Fasilitas" class="img-fluid rounded shadow"
+                                                                        style="max-height: 300px; object-fit: cover;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-
                                                     <div class="col-md-12 col-lg-6">
                                                         <div class="alert alert-primary">
                                                             Data di bawah adalah detail data peminjaman.
@@ -235,12 +259,13 @@
                                                         <div class="row">
                                                             <div class="col-md-12 col-lg-12">
                                                                 <div class="mb-3">
-                                                                    <label class="form-label">Nama Alat</label>
+                                                                    <label class="form-label">Nama Fasilitas</label>
                                                                     <div class="input-group">
                                                                         <span class="d-block input-group-text"><i
                                                                                 class="bi bi-collection-fill"></i></span>
-                                                                        <input class="form-control" id="nama_alat"
-                                                                            value="{{ $item->alat->nama_alat }}" disabled>
+                                                                        <input class="form-control" id="nama_fasilitas"
+                                                                            value="{{ $item->fasilitas->nama_fasilitas }}"
+                                                                            disabled>
 
                                                                     </div>
                                                                 </div>
@@ -269,15 +294,16 @@
                                                                             $item->status_pengajuan === 'selesai' &&
                                                                             $item->returned_at
                                                                         ) {
-                                                                            $status = 'Sudah dikonfirmasi pengembalian';
+                                                                            $status = 'sedang di pakai';
                                                                         } elseif (
                                                                             $item->status_pengajuan === 'pending' &&
                                                                             !$item->returned_at
                                                                         ) {
                                                                             $status =
-                                                                                'Sudah dikembalikan dan menunggu konfirmasi';
+                                                                                'Sudah diajukan dan menunggu konfirmasi';
                                                                         } else {
-                                                                            $status = 'Sedang dipakai';
+                                                                            $status =
+                                                                                'silahkan ajukan permintaan pinjaman';
                                                                         }
                                                                     @endphp
                                                                     <input class="form-control" id="is_returned"
@@ -330,11 +356,11 @@
                         @csrf
                         <!-- Dropdown untuk nama alat -->
                         <div class="mb-3">
-                            <label for="alat_id" class="form-label">Nama Alat</label>
-                            <select class="form-select" id="alat_id" name="alat" required>
-                                <option value="" disabled selected>Pilih Alat</option>
-                                @foreach ($alat as $item)
-                                    <option value="{{ $item->id_alat }}">{{ $item->nama_alat }}</option>
+                            <label for="fasilitas_id" class="form-label">Nama Fasilitas</label>
+                            <select class="form-select" id="fasilitas_id" name="fasilitas" required>
+                                <option value="" disabled selected>Pilih Fasilitas</option>
+                                @foreach ($fasilitas as $item)
+                                    <option value="{{ $item->id_fasilitas }}">{{ $item->nama_fasilitas }}</option>
                                 @endforeach
                             </select>
                         </div>

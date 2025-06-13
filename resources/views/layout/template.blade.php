@@ -19,26 +19,55 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/quill.snow.css">
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
     <link rel="icon" type="image/png" href="{{ asset('admin') }}/assets/images/favicon.png">
 
     <title>Farol - Bootstrap 5 Admin Dashboard Template</title>
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bitcoin-icon i {
+            font-size: 60px;
+            color: #f2a900;
+            /* warna emas khas bitcoin */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Animasi spin */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
 </head>
 
 <body>
-
     <div class="preloader" id="preloader">
-        <div class="preloader">
-            <div class="waviy position-relative">
-                <span class="d-inline-block">F</span>
-                <span class="d-inline-block">A</span>
-                <span class="d-inline-block">R</span>
-                <span class="d-inline-block">O</span>
-                <span class="d-inline-block">L</span>
+        <div class="preloader-inner">
+            <div class="bitcoin-icon">
+                <i class="fab fa-bitcoin"></i>
             </div>
         </div>
     </div>
-
 
     <div class="sidebar-area" id="sidebar-area">
         <div class="logo position-relative">
@@ -66,14 +95,14 @@
                 </li>
 
                 <li class="menu-item">
-                    <a href="/alat" class="menu-link">
-                        <i data-feather="user" class="menu-icon tf-icons"></i>
-                        <span class="title">Alat</span>
+                    <a href="/fasilitas" class="menu-link">
+                        <i data-feather="home" class="menu-icon tf-icons"></i>
+                        <span class="title">Fasilitas</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="{{ route('jurusan') }}" class="menu-link">
-                        <i data-feather="user-check" class="menu-icon tf-icons"></i>
+                        <i data-feather="home" class="menu-icon tf-icons"></i>
                         <span class="title">Jurusan</span>
                     </a>
                 </li>
@@ -107,19 +136,6 @@
                 </li>
             </ul>
         </aside>
-        <div class="bg-white z-1 admin">
-            <div class="d-flex align-items-center admin-info border-top">
-                <div class="flex-shrink-0">
-                    <a href="profile.html" class="d-block">
-                        <img src="{{ asset('admin') }}/assets/images/admin.jpg" class="rounded-circle wh-54" alt="admin">
-                    </a>
-                </div>
-                <div class="flex-grow-1 ms-3 info">
-                    <a href="profile.html" class="d-block name">{{ Auth::guard('admin')->user()->nama_admin }}</a>
-                    <a href="/login">Log Out</a>
-                </div>
-            </div>
-        </div>
     </div>
 
 
@@ -158,8 +174,8 @@
                                     <div class="dropdown notifications language">
                                         <button class="btn btn-secondary border-0 p-0 position-relative"
                                             type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="{{ asset('admin') }}/assets/images/united-states.jpg" class="rounded-circle wh-22"
-                                                alt="united-states">
+                                            <img src="{{ asset('admin') }}/assets/images/united-states.jpg"
+                                                class="rounded-circle wh-22" alt="united-states">
                                         </button>
                                         <div class="dropdown-menu dropdown-lg p-0 border-0 p-4">
                                             <div class="notification-menu">
@@ -220,7 +236,8 @@
                                                 <a href="notification.html" class="dropdown-item p-0">
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-shrink-0">
-                                                            <img src="{{ asset('admin') }}/assets/images/pdf.svg" alt="pdf">
+                                                            <img src="{{ asset('admin') }}/assets/images/pdf.svg"
+                                                                alt="pdf">
                                                         </div>
                                                         <div class="flex-grow-1 ms-3">
                                                             <h4>Help/Support Desk</h4>
@@ -282,7 +299,8 @@
                                                     <h4>8 Invoices have been paid</h4>
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-shrink-0">
-                                                            <img src="{{ asset('admin') }}/assets/images/pdf.svg" alt="pdf">
+                                                            <img src="{{ asset('admin') }}/assets/images/pdf.svg"
+                                                                alt="pdf">
                                                         </div>
                                                         <div class="flex-grow-1 ms-3">
                                                             <p>Invoices have been paid to the company.</p>
@@ -325,7 +343,8 @@
                                         <div class="d-xxl-flex align-items-center bg-transparent border-0 text-start p-0 cursor"
                                             data-bs-toggle="dropdown">
                                             <div class="flex-shrink-0">
-                                                <img class="rounded-circle wh-54" src="{{ asset('admin') }}/assets/images/admin.jpg"
+                                                <img class="rounded-circle wh-54"
+                                                    src="{{ asset('admin') }}/assets/images/admin.jpg"
                                                     alt="admin">
                                             </div>
                                         </div>
@@ -368,9 +387,9 @@
             <div class="flex-grow-1"></div>
 
             <footer class="footer-area bg-white text-center rounded-top-10">
-                <p class="fs-14">© <span class="text-primary">Farol</span> is Proudly Owned by <a
-                        href="https://hibootstrap.com/" target="_blank"
-                        class="text-decoration-none">HiBootstrap</a></p>
+                <p class="fs-14">© <span class="text-primary">Informatick</span> C-22 <a
+                        href="https://arya-nux23.github.io/portofolio/" target="_blank" class="text-decoration-none">Kelompok4</a>
+                </p>
             </footer>
 
         </div>

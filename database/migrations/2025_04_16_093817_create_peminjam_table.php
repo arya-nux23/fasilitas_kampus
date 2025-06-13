@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->timestamp('returned_at')->nullable();
             $table->string('status_pengajuan')->nullable();
-            $table->foreignId('alat_id')->constrained('alat', 'id_alat')->onDelete('cascade');
+            $table->foreignId('fasilitas_id')->constrained('fasilitas_kampus', 'id_fasilitas')->onDelete('cascade');
             $table->foreignId('mahasiswa_id')->constrained('mahasiswa', 'id_mahasiswa')->onDelete('cascade');
             $table->timestamps();
         });

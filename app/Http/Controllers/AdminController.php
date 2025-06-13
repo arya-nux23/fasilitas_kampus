@@ -14,14 +14,6 @@ class AdminController extends Controller
         $admin = Admin::all();
         return view('operator.admin', compact('admin'));
     }
-
-
-    public function create()
-    {
-        $data['admin'] = Admin::all();
-        return view('operator.tambah', $data);
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -42,16 +34,7 @@ class AdminController extends Controller
          // Redirect dengan pesan sukses
          return redirect('/operator')->with('success', 'Data Operator Berhasil Ditambah');
     }
-
-    public function edit($id)
-    {
-        $admin = Admin::findOrFail($id);
-        $data = [
-            'admin' => $admin, // cukup kirim $admin, tidak perlu $operator
-        ];
-        return view('operator.edit', $data); // pastikan nama filenya sesuai
-    }
-
+    
     public function edit_action(Request $request, $id)
     {
         $request->validate([

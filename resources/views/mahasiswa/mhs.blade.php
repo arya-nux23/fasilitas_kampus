@@ -1,25 +1,16 @@
 @extends('layout.template')
 @section('content')
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Sukses!</strong> {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
-    <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-        <h3 class="mb-sm-0 mb-1 fs-18">Basic Table</h3>
-        <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
-            <li>
-                <a href="index.html" class="text-decoration-none">
-                    <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
-                    <span>Home</span>
-                </a>
-            </li>
-            <li>
-                <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Basic Table</span>
-            </li>
-        </ul>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 
     <div class="card bg-white border-0 rounded-10 mb-4">
         <div class="card-body p-4">
@@ -63,12 +54,6 @@
                                                 <i data-feather="more-horizontal"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end bg-white border box-shadow">
-                                                <li>
-                                                    <a class="dropdown-item" href="javascript:;">
-                                                        <i data-feather="info" class="menu-icon tf-icons"></i>
-                                                        Detail
-                                                    </a>
-                                                </li>
                                                 <li>
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                                         data-bs-target="#edit{{ $item->id_mahasiswa }}">
@@ -125,13 +110,15 @@
                                                                 <div class="col-md-4">
                                                                     <label for="nama" class="form-label">Nama</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="nama" id="nama" value="{{ $item->nama_mhs }}"
+                                                                        name="nama" id="nama"
+                                                                        value="{{ $item->nama_mhs }}"
                                                                         placeholder="Masukkan Nama">
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <label for="nim" class="form-label">NIM</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="nim" id="nim" value="{{ $item->nim_mhs }}"
+                                                                        name="nim" id="nim"
+                                                                        value="{{ $item->nim_mhs }}"
                                                                         placeholder="Masukkan NIM">
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -155,7 +142,8 @@
                                                                 <div class="col-md-6">
                                                                     <label for="email" class="form-label">Email</label>
                                                                     <input type="email" class="form-control"
-                                                                        id="email" name="email" value="{{$item->email }}"
+                                                                        id="email" name="email"
+                                                                        value="{{ $item->email }}"
                                                                         placeholder="Masukkan Email">
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -164,14 +152,15 @@
                                                                     <input type="password" class="form-control"
                                                                         id="password" name="password"
                                                                         placeholder="Masukkan Password">
-                                                                        <div class="form-text text-primary">Kosongkan password jika tidak ingin mengubahnya.</div>
+                                                                    <div class="form-text text-primary">Kosongkan password
+                                                                        jika tidak ingin mengubahnya.</div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Tutup</button>
                                                                 <button type="submit"
-                                                                    class="btn btn-success">Tambah</button>
+                                                                    class="btn btn-primary">Simpan</button>
                                                             </div>
 
                                                         </form>
@@ -188,8 +177,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- Modal Tambah Mahasiswa -->
     <div class="modal fade" id="modalTambahMahasiswa" tabindex="-1" aria-labelledby="modalTambahLabel"
         aria-hidden="true">
@@ -238,7 +225,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-success">Tambah</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>
 
                     </form>

@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Alat;
-use App\Models\Mahasiswa;
+use App\Models\Fasilitas;
 use App\Models\Peminjam;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -17,8 +16,8 @@ class MhspinjamController extends Controller
     {
         $mahasiswa = Auth::guard('mahasiswa')->user();
         $peminjam = Peminjam::where('mahasiswa_id', $mahasiswa->id_mahasiswa)->get();
-        $alat = Alat::all();
-        return view('peminjam_mhs.view', compact('alat', 'peminjam'));
+        $fasilitas = Fasilitas::all();
+        return view('peminjam_mhs.view', compact('fasilitas', 'peminjam'));
     }
 
     public function store(Request $request)
@@ -26,20 +25,31 @@ class MhspinjamController extends Controller
         // Validasi input
         $request->validate([
             'date' => 'required|date',
-            'alat' => 'required|exists:alat,id_alat',
+            'fasilitas' => 'required|exists:fasilitas_kampus,id_fasilitas',
         ]);
+
+        // Cek apakah fasilitas sudah dipinjam di tanggal yang sama
+        $isUsed = Peminjam::where('date', $request->date)
+            ->where('fasilitas_id', $request->fasilitas)
+            ->whereNull('returned_at') // Jika belum dikembalikan
+            ->exists();
+
+        if ($isUsed) {
+            return redirect()->back()->with('error', 'Fasilitas ini sedang dipakai pada tanggal tersebut.');
+        }
 
         $mahasiswa = Auth::guard('mahasiswa')->user();
 
         // Simpan data peminjaman
         Peminjam::create([
             'date' => $request->date,
-            'alat_id' => $request->alat,
+            'fasilitas_id' => $request->fasilitas,
             'mahasiswa_id' => $mahasiswa->id_mahasiswa,
         ]);
 
         return redirect('/peminjam/mahasiswa')->with('success', 'Peminjaman berhasil ditambahkan');
     }
+
 
     public function update(Request $request, $id)
     {
@@ -69,6 +79,4 @@ class MhspinjamController extends Controller
 
         return redirect('/peminjam/mahasiswa')->with('success', 'Pengajuan pengembalian berhasil dikirim.');
     }
-
-    
 }

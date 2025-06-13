@@ -12,9 +12,9 @@ class Peminjam extends Model
     protected $primaryKey = 'id_peminjam';
     protected $guarded = [];
 
-    public function alat()
+    public function fasilitas()
     {
-        return $this->belongsTo(Alat::class, 'alat_id', 'id_alat');
+        return $this->belongsTo(Fasilitas::class, 'fasilitas_id', 'id_fasilitas');
     }
 
     public function mahasiswa()

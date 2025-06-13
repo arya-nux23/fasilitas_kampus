@@ -1,17 +1,16 @@
 @extends('layout.template')
 @section('content')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            @if (session('success'))
-                Swal.fire({
-                    title: "SUCCESS!",
-                    text: "{{ session('success') }}",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
-            @endif
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
     <div class="card bg-white border-0 rounded-10 mb-4">
         <div class="card-body p-4">
             <div class="default-table-area members-list">
@@ -23,8 +22,8 @@
                     melihat riwayat data peminjaman yang sudah anda pinjam bisa pergi ke menu
                     riwayat peminjaman pada daftar menu.
                     <div class="fw-bold pt-3">
-                        Diharapkan setiap peminjaman yang sudah melakukan pengajuan kembalian mohon lakukan konfirmasi
-                        pengembaliannya.
+                        Diharapkan setiap peminjaman yang sudah melakukan pengajuan mohon lakukan konfirmasi
+                        peminjaman.
                     </div>
                 </div>
 
@@ -35,7 +34,7 @@
                             <tr>
                                 <th scope="col" class="text-primary text-center">#</th>
                                 <th scope="col">Nama Mahasiswa</th>
-                                <th scope="col">Nama Alat</th>
+                                <th scope="col">Nama Fasilitas</th>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Admin</th>
                                 <th scope="col">Actions</th>
@@ -46,15 +45,15 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td><span class="badge text-bg-primary">{{ $item->mahasiswa->nama_mhs }}</span></td>
-                                    <td>{{ $item->alat->nama_alat }}</td>
-                                    <td>{{ $item->date }}</td>
+                                    <td>{{ $item->fasilitas->nama_fasilitas }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->date)->translatedFormat('d-F-Y') }}</td>
                                     <td>
                                         @if ($item->returned_at)
-                                            <span class="badge text-bg-secondary">
+                                            <span class="badge text-bg-primary" title="Sudah dikonfirmasi peminjaman">
                                                 <i class="ri-checkbox-circle-line"></i>
                                             </span>
                                         @else
-                                            <span class="badge text-bg-warning">
+                                            <span class="badge text-bg-warning" title="Belum dikonfirmasi peminjaman">
                                                 <i class="ri-error-warning-line"></i>
                                             </span>
                                         @endif
@@ -90,7 +89,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Apakah Anda Ingin Menghapus Alat <strong>{{ $item->nama_alat }}</strong>
+                                                Apakah Anda Ingin Menghapus Alat <strong>{{ $item->nama_fasilitas }}</strong>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
@@ -109,12 +108,12 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="konfirmasiModalLabel{{ $item->id_peminjam }}">
-                                                    Konfirmasi Pengembalian</h5>
+                                                    Konfirmasi Peminjaman</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Tutup"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Apakah Anda yakin ingin konfirmasi pengembalian ini?
+                                                Apakah Anda yakin ingin konfirmasi Peminjaman ini?
                                             </div>
                                             <div class="modal-footer">
                                                 <form method="POST"
@@ -180,6 +179,16 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="mb-3 text-center">
+                                                                    <label class="form-label d-block">Gambar Fasilitas</label>
+                                                                    <img src="{{ asset('storage/' . $item->fasilitas->foto) }}" alt="Foto Fasilitas"
+                                                                        class="img-fluid rounded shadow" style="max-height: 300px; object-fit: cover;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
 
                                                     <div class="col-md-12 col-lg-6">
@@ -189,12 +198,12 @@
                                                         <div class="row">
                                                             <div class="col-md-12 col-lg-12">
                                                                 <div class="mb-3">
-                                                                    <label class="form-label">Nama Alat</label>
+                                                                    <label class="form-label">Nama Fasilitas</label>
                                                                     <div class="input-group">
                                                                         <span class="d-block input-group-text"><i
                                                                                 class="bi bi-collection-fill"></i></span>
-                                                                        <input class="form-control" id="nama_alat"
-                                                                            value="{{ $item->alat->nama_alat }}" disabled>
+                                                                        <input class="form-control" id="nama_fasilitas"
+                                                                            value="{{ $item->fasilitas->nama_fasilitas }}" disabled>
 
                                                                     </div>
                                                                 </div>
@@ -223,15 +232,15 @@
                                                                             $item->status_pengajuan === 'selesai' &&
                                                                             $item->returned_at
                                                                         ) {
-                                                                            $status = 'Sudah dikonfirmasi pengembalian';
+                                                                            $status = 'Sudah dikonfirmasi peminjaman';
                                                                         } elseif (
                                                                             $item->status_pengajuan === 'pending' &&
                                                                             !$item->returned_at
                                                                         ) {
                                                                             $status =
-                                                                                'Sudah dikembalikan dan menunggu konfirmasi';
+                                                                                'Sudah ajukan peminjaman dan menunggu konfirmasi';
                                                                         } else {
-                                                                            $status = 'Sedang dipakai';
+                                                                            $status = 'Belum di konfirmasi pengajuan peminjaman';
                                                                         }
                                                                     @endphp
                                                                     <input class="form-control" id="is_returned"

@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Alat;
+use App\Models\Fasilitas;
 use App\Models\Peminjam;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -15,8 +14,8 @@ class PeminjamController extends Controller
     public function index()
     {
         $peminjam = Peminjam::all();
-        $alat = Alat::all();
-        return view('peminjam.view', compact('peminjam', 'alat'));
+        $fasilitas = Fasilitas::all();
+        return view('peminjam.view', compact('peminjam', 'fasilitas'));
     }
 
     public function konfirmasi($id)
@@ -28,7 +27,7 @@ class PeminjamController extends Controller
                 'status_pengajuan' => 'selesai',
             ]);
 
-        return back()->with('success', 'Peminjaman berhasil dikonfirmasi sebagai sudah kembali.');
+        return back()->with('success', 'Peminjaman berhasil dikonfirmasi sebagai sudah ajukan.');
     }
 
     public function destroy($id)

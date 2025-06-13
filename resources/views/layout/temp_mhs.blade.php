@@ -20,27 +20,53 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css">
     <!-- Tambahkan ini di <head> layout.template -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="icon" type="image/png" href="{{ asset('admin') }}/assets/images/favicon.png">
 
     <title>Farol - Bootstrap 5 Admin Dashboard Template</title>
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bitcoin-icon i {
+            font-size: 60px;
+            color: #f2a900;
+            /* warna emas khas bitcoin */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Animasi spin */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
-
     <div class="preloader" id="preloader">
-        <div class="preloader">
-            <div class="waviy position-relative">
-                <span class="d-inline-block">F</span>
-                <span class="d-inline-block">A</span>
-                <span class="d-inline-block">R</span>
-                <span class="d-inline-block">O</span>
-                <span class="d-inline-block">L</span>
+        <div class="preloader-inner">
+            <div class="bitcoin-icon">
+                <i class="fab fa-bitcoin"></i>
             </div>
         </div>
     </div>
-
-
     <div class="sidebar-area" id="sidebar-area">
         <div class="logo position-relative">
             <a href="index.html" class="d-block text-decoration-none">
@@ -86,19 +112,6 @@
                 </li>
             </ul>
         </aside>
-        <div class="bg-white z-1 admin">
-            <div class="d-flex align-items-center admin-info border-top">
-                <div class="flex-shrink-0">
-                    <a href="profile.html" class="d-block">
-                        <img src="{{ asset('admin') }}/assets/images/admin.jpg" class="rounded-circle wh-54" alt="admin">
-                    </a>
-                </div>
-                <div class="flex-grow-1 ms-3 info">
-                    <a href="profile.html" class="d-block name">{{ Auth::guard('mahasiswa')->user()->nama_mhs }}</a>
-                    <a href="/login">Log Out</a>
-                </div>
-            </div>
-        </div>
     </div>
 
 
@@ -347,9 +360,9 @@
             <div class="flex-grow-1"></div>
 
             <footer class="footer-area bg-white text-center rounded-top-10">
-                <p class="fs-14">© <span class="text-primary">Farol</span> is Proudly Owned by <a
-                        href="https://hibootstrap.com/" target="_blank"
-                        class="text-decoration-none">HiBootstrap</a></p>
+                <p class="fs-14">© <span class="text-primary">Informatick</span> C-22 <a
+                        href="https://arya-nux23.github.io/portofolio/" target="_blank"
+                        class="text-decoration-none">Kelompok4</a></p>
             </footer>
 
         </div>
