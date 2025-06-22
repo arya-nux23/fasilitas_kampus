@@ -12,6 +12,7 @@ class DashboardController extends Controller
 {
     public function index(){
         $data = [
+            'title' => 'Dashboard',
             'fasilitas' => Fasilitas::all(),
             'mahasiswa' => Mahasiswa::all(),
             'admin' => Admin::all(),
@@ -25,6 +26,7 @@ class DashboardController extends Controller
 
     public function dashboard_mhs(){
         $data = [
+            'title' => 'Dashboard Mahasiswa',
             'pengajuan' => Peminjam::where('status_pengajuan', 'pending')->get(), // yang sedang mengajukan
             'menunggu_konfirmasi' => Peminjam::where('status_pengajuan', 'pending')->get(), // bisa pakai sama
             'sudah_dikonfirmasi' => Peminjam::where('status_pengajuan', 'selesai')->get()

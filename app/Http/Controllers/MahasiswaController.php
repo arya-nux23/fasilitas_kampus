@@ -13,9 +13,10 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
+        $title = 'Mahasiswa';
         $jurusan = Jurusan::all();
         $mahasiswa = Mahasiswa::all();
-        return view('mahasiswa.mhs', compact('mahasiswa', 'jurusan'));
+        return view('mahasiswa.mhs', compact('mahasiswa', 'jurusan', 'title'));
     }
 
     public function store(Request $request)

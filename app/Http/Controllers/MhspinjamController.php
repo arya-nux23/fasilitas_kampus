@@ -14,10 +14,11 @@ class MhspinjamController extends Controller
      */
     public function index()
     {
+        $title = 'Mahasiswa|Peminjam';
         $mahasiswa = Auth::guard('mahasiswa')->user();
         $peminjam = Peminjam::where('mahasiswa_id', $mahasiswa->id_mahasiswa)->get();
         $fasilitas = Fasilitas::all();
-        return view('peminjam_mhs.view', compact('fasilitas', 'peminjam'));
+        return view('peminjam_mhs.view', compact('fasilitas', 'peminjam', 'title'));
     }
 
     public function store(Request $request)

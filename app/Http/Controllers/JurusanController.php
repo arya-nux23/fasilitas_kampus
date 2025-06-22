@@ -11,8 +11,9 @@ class JurusanController extends Controller
      */
     public function index()
     {
+        $title = 'Jurusan';
         $jurusan = Jurusan::withCount('mahasiswa')->get();
-        return view('jurusan.jurusan', compact('jurusan'));
+        return view('jurusan.jurusan', compact('jurusan', 'title'));
     }
 
 

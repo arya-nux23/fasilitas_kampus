@@ -13,17 +13,17 @@ class FasilitasController extends Controller
      */
     public function index()
     {
+        $title = 'Fasilitas';
         // Ambil semua data fasilitas beserta peminjaman terakhirnya
         $fasilitas = Fasilitas::with('peminjamanTerakhir')->get();
-        return view('fasilitas.fasilitas', compact('fasilitas'));
+        return view('fasilitas.fasilitas', compact('fasilitas', 'title'));
     }
-
 
     public function create()
     {
-        return view('fasilitas.tambah');
+        $title = 'Tambah|Fasilitas';
+        return view('fasilitas.tambah', compact('title'));
     }
-
 
     public function store(Request $request)
     {
@@ -45,16 +45,9 @@ class FasilitasController extends Controller
         return redirect('/fasilitas')->with('success', 'Data fasilitas Berhasil Ditambah');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit($id)
     {
+        $data['title'] = 'Edit|Fasilitas';
         $data['fasilitas'] = Fasilitas::where('id_fasilitas', $id)->first();
         return view('fasilitas.edit', $data);
     }

@@ -13,9 +13,10 @@ class PeminjamController extends Controller
      */
     public function index()
     {
+        $title = 'Peminjam';
         $peminjam = Peminjam::all();
         $fasilitas = Fasilitas::all();
-        return view('peminjam.view', compact('peminjam', 'fasilitas'));
+        return view('peminjam.view', compact('peminjam', 'fasilitas', 'title'));
     }
 
     public function konfirmasi($id)

@@ -14,10 +14,11 @@ class PagesController extends Controller
      */
     public function index()
     {
+        $title = 'Home';
         $fasilitas = Fasilitas::all();
         $peminjaman = Peminjam::all();
         $peminjam = Peminjam::where('status_pengajuan', 'selesai')->get();
-        return view('home.index', compact('peminjam', 'fasilitas', 'peminjaman'));
+        return view('home.index', compact('peminjam', 'fasilitas', 'peminjaman', 'title'));
     }
 
     /**
@@ -25,40 +26,8 @@ class PagesController extends Controller
      */
     public function fasilitas()
     {
+        $title = 'Fasilitas';
         $fasilitas = Fasilitas::all();
-        return view('home.sewa', compact('fasilitas'));
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('home.fasility', compact('fasilitas', 'title'));
     }
 }

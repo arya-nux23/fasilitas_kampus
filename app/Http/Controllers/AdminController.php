@@ -11,8 +11,9 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $title = 'Admin';
         $admin = Admin::all();
-        return view('operator.admin', compact('admin'));
+        return view('operator.admin', compact('admin', 'title'));
     }
     public function store(Request $request)
     {
@@ -34,7 +35,7 @@ class AdminController extends Controller
          // Redirect dengan pesan sukses
          return redirect('/operator')->with('success', 'Data Operator Berhasil Ditambah');
     }
-    
+
     public function edit_action(Request $request, $id)
     {
         $request->validate([

@@ -3,7 +3,7 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-                <h4 class="fs-18 mb-4">Textual Inputs</h4>
+                <h4 class="fs-18 mb-4">Edit Fasilitas</h4>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="preview-tab-pane" role="tabpanel" aria-labelledby="preview-tab"
                         tabindex="0">

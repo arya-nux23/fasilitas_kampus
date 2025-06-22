@@ -1,13 +1,13 @@
 @extends('layout.template')
 @section('content')
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Sukses!</strong> {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Sukses!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-        <h3 class="mb-sm-0 mb-1 fs-18">Basic Table</h3>
+        <h3 class="mb-sm-0 mb-1 fs-18">{{ $title }}</h3>
         <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
             <li>
                 <a href="index.html" class="text-decoration-none">
@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Basic Table</span>
+                <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">{{ $title }}</span>
             </li>
         </ul>
     </div>
@@ -29,7 +29,7 @@
                     data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                     <span class="py-sm-1 d-block">
                         <i class="ri-add-line text-white"></i>
-                        <span>Create New User</span>
+                        <span>Tambah Jurusan</span>
                     </span>
                 </button>
             </div>
@@ -53,7 +53,7 @@
                             @foreach ($jurusan as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->nama_jurusan}}</td>
+                                    <td>{{ $item->nama_jurusan }}</td>
                                     <td>
                                         <div class="dropdown action-opt">
                                             <button class="btn bg p-0" type="button" data-bs-toggle="dropdown"
@@ -87,7 +87,8 @@
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Apakah Anda Ingin Menghapus jurusan <strong>{{ $item->nama_jurusan }}</strong>
+                                                            Apakah Anda Ingin Menghapus jurusan
+                                                            <strong>{{ $item->nama_jurusan }}</strong>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
@@ -113,14 +114,15 @@
                                                     <div class="form-group mb-4">
                                                         <label class="label">Name jurusan</label>
                                                         <input type="text" name="jurusan" class="form-control text-dark"
-                                                            placeholder="User Name"  value="{{ old('nama_jurusan', $item->nama_jurusan) }}">
+                                                            placeholder="User Name"
+                                                            value="{{ old('nama_jurusan', $item->nama_jurusan) }}">
                                                     </div>
                                                     <div class="form-group d-flex gap-3">
                                                         <button
                                                             class="btn btn-primary text-white fw-semibold py-2 px-2 px-sm-3">
                                                             <span class="py-sm-1 d-block">
                                                                 <i class="ri-add-line text-white"></i>
-                                                                <span>Create Members</span>
+                                                                <span>Simpan</span>
                                                             </span>
                                                         </button>
                                                     </div>
@@ -139,7 +141,7 @@
     </div>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header border-bottom p-4">
-            <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">Create Members List</h5>
+            <h5 class="offcanvas-title fs-18 mb-0" id="offcanvasRightLabel">From Tambah</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-4">
@@ -153,7 +155,7 @@
                     <button class="btn btn-primary text-white fw-semibold py-2 px-2 px-sm-3">
                         <span class="py-sm-1 d-block">
                             <i class="ri-add-line text-white"></i>
-                            <span>Create Members</span>
+                            <span>Tambah</span>
                         </span>
                     </button>
                 </div>
