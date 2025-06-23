@@ -38,14 +38,14 @@
                     <!-- Single Blog Start -->
                     <div class="single-blog">
                         <div class="blog-img">
-                            <a href="blog-details.html"><img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Fasilitas"
+                            <a href="#"><img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Fasilitas"
                                 style="width: 410px; height: 247px;"></a>
                         </div>
                         <div class="blog-content">
                             <div class="blog-meta">
                                 <span><i class="fas fa-map-marker-alt"></i> {{ $item->lokasi }}</span>
                             </div>
-                            <h3 class="title"><a href="blog-details.html">{{ $item->nama_fasilitas }}</a></h3>
+                            <h3 class="title"><a href="#">{{ $item->nama_fasilitas }}</a></h3>
                             <p><b>Description: </b>{{ $item->deskripsi }}</p>
                         </div>
                     </div>

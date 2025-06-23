@@ -89,7 +89,6 @@ class FasilitasController extends Controller
     public function destroy($id)
     {
         $fasilitas = Fasilitas::findOrFail($id);
-
         $storagePath = public_path('storage/');
         // Hapus foto di file storage/public
         if ($fasilitas->foto && file_exists($storagePath . $fasilitas->foto)) {

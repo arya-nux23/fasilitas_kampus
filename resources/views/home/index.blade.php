@@ -9,7 +9,7 @@
                     <!-- Hero Content Start -->
                     <div class="hero-content">
                         <h3 class="sub-title" data-aos-delay="600" data-aos="fade-up">Kelompok 4</h3>
-                        <h2 class="title" data-aos="fade-up" data-aos-delay="800">Sewa Fasilitas Kampus</h2>
+                        <h2 class="title" data-aos="fade-up" data-aos-delay="800">Peminjaman Fasilitas Kampus</h2>
                         <p data-aos="fade-up" data-aos-delay="900"> Universitas Bahaudin Mudhary Madura (UNIBA Madura). </p>
                     </div>
                     <!-- Hero Content End -->
@@ -40,7 +40,7 @@
                         <div class="about-left">
                             <div class="section-title">
                                 <h3 class="sub-title">Who We Are</h3>
-                                <h2 class="title">We specialise in Serving businesses by hard implementing AI</h2>
+                                <h2 class="title">Platform peminjaman fasilitas kampus untuk mendukung kegiatan akademik dan organisasi.</h2>
                             </div>
                         </div>
                         <!-- About Left End -->
@@ -51,11 +51,11 @@
                             <div class="about-experience-award">
                                 <div class="single-item">
                                     <h2 class="number">25</h2>
-                                    <span>Years of <br> experience</span>
+                                    <span>Memberikan layanan terbaik</span>
                                 </div>
                                 <div class="single-item">
                                     <h2 class="number">10</h2>
-                                    <span>Most awarded <br> for AI Product</span>
+                                    <span>Siap digunakan <br> kapan saja</span>
                                 </div>
                             </div>
                         </div>
@@ -81,10 +81,9 @@
                                 <div class="service-item"
                                     style="background-image: url({{ asset('pages') }}/assets/images/service/service-8.png);">
                                     <div class="service-content">
-                                        <h3 class="title"><a href="#">Blockchain Data</a></h3>
-                                        <p>Accelerate innovation with world-class tech teams </p>
-                                        <a class="read-more" href="#">Learn More <i
-                                                class="fas fa-long-arrow-alt-right"></i></a>
+                                        <h3 class="title"><a href="#">Fasilitas Kelas</a></h3>
+                                        <p>Peminjaman ruang kelas untuk kegiatan belajar atau organisasi.</p>
+
                                     </div>
                                 </div>
                                 <!-- Service Item End -->
@@ -94,10 +93,8 @@
                                 <div class="service-item"
                                     style="background-image: url({{ asset('pages') }}/assets/images/service/service-9.png);">
                                     <div class="service-content">
-                                        <h3 class="title"><a href="#">Data Interface</a></h3>
-                                        <p>Accelerate innovation with world-class tech teams </p>
-                                        <a class="read-more" href="#">Learn More <i
-                                                class="fas fa-long-arrow-alt-right"></i></a>
+                                        <h3 class="title"><a href="#">Fasilitas Olahraga</a></h3>
+                                        <p>Booking lapangan atau alat olahraga kampus dengan mudah.</p>
                                     </div>
                                 </div>
                                 <!-- Service Item End -->
@@ -107,10 +104,8 @@
                                 <div class="service-item"
                                     style="background-image: url({{ asset('pages') }}/assets/images/service/service-10.png);">
                                     <div class="service-content">
-                                        <h3 class="title"><a href="#">Digital business</a></h3>
-                                        <p>Accelerate innovation with world-class tech teams </p>
-                                        <a class="read-more" href="#">Learn More <i
-                                                class="fas fa-long-arrow-alt-right"></i></a>
+                                        <h3 class="title"><a href="#">Peralatan Multimedia</a></h3>
+                                        <p>Peminjaman proyektor, speaker, dan alat multimedia lainnya.</p>
                                     </div>
                                 </div>
                                 <!-- Service Item End -->
@@ -125,6 +120,7 @@
             <!-- Service Wrap End -->
         </div>
     </div>
+
     <!-- Service-6 End -->
 
     <!-- Overview Start -->
@@ -146,28 +142,25 @@
                         <!-- Overview Content Start -->
                         <div class="overview-content">
                             <div class="section-title">
-                                <h3 class="sub-title">Secure Data</h3>
-                                <h2 class="title">Next generation platform for secure data by AI</h2>
+                                <h3 class="sub-title">Fasilitas Kampus</h3>
+                                <h2 class="title">Platform Modern untuk Peminjaman Fasilitas Kampus</h2>
                             </div>
                             <div class="overview-list">
                                 <ul>
                                     <li>
                                         <span class="overview-icon"><i class="fas fa-check"></i></span>
-                                        <span class="overview-text">We always focus on technical excellence</span>
+                                        <span class="overview-text">Mendukung kegiatan akademik dan non-akademik dengan efisien</span>
                                     </li>
                                     <li>
                                         <span class="overview-icon"><i class="fas fa-check"></i></span>
-                                        <span class="overview-text"> Wherever you’re going, we bring ideas and
-                                            excitement</span>
+                                        <span class="overview-text"> Kemudahan akses dan pemesanan fasilitas kampus secara online</span>
                                     </li>
                                     <li>
                                         <span class="overview-icon"><i class="fas fa-check"></i></span>
-                                        <span class="overview-text">We’re consultants, guides, and partners for
-                                            brands</span>
+                                        <span class="overview-text">Dikelola dengan sistem yang aman dan terintegrasi</span>
                                     </li>
                                 </ul>
                             </div>
-                            <a class="btn" href="#">Learn More</a>
                         </div>
                         <!-- Overview Content End -->
                     </div>
@@ -243,11 +236,10 @@
                         <!-- Overview Content Start -->
                         <div class="overview-content">
                             <div class="section-title">
-                                <h3 class="sub-title">Data Analyses</h3>
-                                <h2 class="title">Turn data into data board for smart technology</h2>
+                                <h3 class="sub-title">Pengelolaan Fasilitas</h3>
+                                <h2 class="title">Peminjaman lebih mudah dan terpantau secara digital.</h2>
                             </div>
-                            <p class="text">Accelerate innovation with world-class tech teams We’ll match you to an
-                                entire remote team of incredible freelance talent for all your software development </p>
+                            <p class="text">Layanan cepat, aman, dan efisien untuk seluruh civitas kampus. </p>
                             <div class="counter-wrap">
                                 <!-- Counter Item Start -->
                                 <div class="counter-item">
@@ -255,7 +247,7 @@
                                         <span>
                                             <span class="counter">354</span>+
                                         </span>
-                                        <p>Completed Projects</p>
+                                        <p>Peminjaman Proses</p>
                                     </div>
                                 </div>
                                 <!-- Counter Item End -->
@@ -265,7 +257,7 @@
                                         <span>
                                             <span class="counter">119</span>+
                                         </span>
-                                        <p>Satisfied Clients</p>
+                                        <p>Pengguna puas</p>
                                     </div>
                                 </div>
                                 <!-- Counter Item End -->
@@ -301,7 +293,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="cta-content text-center">
-                            <h2 class="title">Let's make together</h2>
+                            <h2 class="title">Mari Gunakan Bersama</h2>
                             <p>This is only glimpse Please <a>Contact US</a></p>
                         </div>
                     </div>

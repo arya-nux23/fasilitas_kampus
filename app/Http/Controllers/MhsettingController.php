@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class MhsettingController extends Controller
 {
     public function index(){
+        $title = 'Setting|Akun';
          $mahasiswa = Mahasiswa::all();
-        return view('mahasiswa.pengaturan-profil.pengaturan', compact('mahasiswa'));
+        return view('mahasiswa.pengaturan-profil.pengaturan', compact('mahasiswa', 'title'));
     }
 }

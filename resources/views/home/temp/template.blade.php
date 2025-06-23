@@ -63,8 +63,8 @@
 
                     <div class="header-logo">
                         <a class="logo-white" href="/page"><img
-                                src="{{ asset('pages') }}/assets/images/logo-white.png" alt=""></a>
-                        <a class="logo-black" href="/page"><img src="{{ asset('pages') }}/assets/images/logo.png"
+                                src="{{ asset('pages') }}/assets/images/logo34.png" alt=""></a>
+                        <a class="logo-black" href="/page"><img src="{{ asset('pages') }}/assets/images/logo34.png"
                                 alt=""></a>
                     </div>
 
@@ -106,7 +106,7 @@
             <div class="offcanvas-header">
                 <!-- Offcanvas Logo Start -->
                 <div class="offcanvas-logo">
-                    <a href="index.html"><img src="{{ asset('pages') }}/assets/images/logo-white.png"
+                    <a href="index.html"><img src="{{ asset('pages') }}/assets/images/logo34.png"
                             alt=""></a>
                 </div>
                 <!-- Offcanvas Logo End -->

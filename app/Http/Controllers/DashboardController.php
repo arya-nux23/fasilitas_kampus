@@ -17,7 +17,7 @@ class DashboardController extends Controller
             'mahasiswa' => Mahasiswa::all(),
             'admin' => Admin::all(),
             'pengajuan' => Peminjam::where('status_pengajuan', 'pending')->get(), // yang sedang mengajukan
-            'menunggu_konfirmasi' => Peminjam::where('status_pengajuan', 'pending')->get(), // bisa pakai sama
+            // 'menunggu_konfirmasi' => Peminjam::where('status_pengajuan', 'pending')->get(), // bisa pakai sama
             'sudah_dikonfirmasi' => Peminjam::where('status_pengajuan', 'selesai')->get()
         ];
         return view('dashboard.dashboard', $data);
