@@ -190,8 +190,8 @@
                                     <!-- Service Item Start -->
                                     <div class="service-item">
                                         <div class="service-img">
-                                            <div class="shape-1"></div>
-                                            <div class="shape-2"></div>
+                                            {{-- <div class="shape-1"></div>
+                                            <div class="shape-2"></div> --}}
                                             <a class="image" href="#"><img
                                                     src="{{ asset('storage/' . $item->fasilitas->foto) }}" alt="capabi"
                                                     style="width: 411px; height: 332px;"></a>

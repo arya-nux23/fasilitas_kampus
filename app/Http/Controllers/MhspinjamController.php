@@ -78,6 +78,6 @@ class MhspinjamController extends Controller
                 'status_pengajuan' => 'pending',
             ]);
 
-        return redirect('/peminjam/mahasiswa')->with('success', 'Pengajuan pengembalian berhasil dikirim.');
+        return redirect('/peminjam/mahasiswa')->with('success', 'Pengajuan berhasil dikirim.');
     }
 }

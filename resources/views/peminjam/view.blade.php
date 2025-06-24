@@ -116,13 +116,13 @@
                                                 Apakah Anda yakin ingin konfirmasi Peminjaman ini?
                                             </div>
                                             <div class="modal-footer">
-                                                <form method="POST"
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Batal</button>
+                                                    <form method="POST"
                                                     action="/peminjaman/{{ $item->id_peminjam }}/konfirmasi">
                                                     @csrf
                                                     <button type="submit" class="btn btn-primary">Ya, Konfirmasi</button>
                                                 </form>
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Batal</button>
                                             </div>
                                         </div>
                                     </div>

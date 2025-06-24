@@ -144,7 +144,7 @@
                             <!-- Footer Widget Start -->
                             <div class="footer-widget-about">
                                 <a class="footer-logo" href="index.html"><img
-                                        src="{{ asset('pages') }}/assets/images/logo-white.png" alt="Logo"></a>
+                                        src="{{ asset('pages') }}/assets/images/logo-21.png" alt="Logo"></a>
                                 <div class="widget-info">
                                     <ul>
                                         <li>

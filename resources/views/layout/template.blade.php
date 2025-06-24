@@ -124,13 +124,13 @@
                 </li>
                 <li class="menu-item">
                     <a href="/mahasiswa" class="menu-link">
-                        <i data-feather="book-open" class="menu-icon tf-icons"></i>
+                        <i data-feather="user" class="menu-icon tf-icons"></i>
                         <span class="title">mahasiswa</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="/operator" class="menu-link">
-                        <i data-feather="book-open" class="menu-icon tf-icons"></i>
+                        <i data-feather="user" class="menu-icon tf-icons"></i>
                         <span class="title">Admin</span>
                     </a>
                 </li>
