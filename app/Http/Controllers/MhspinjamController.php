@@ -54,24 +54,37 @@ class MhspinjamController extends Controller
         return redirect()->back()->with('success', 'Peminjaman berhasil ditambahkan');
     }
 
-
-
-
     public function update(Request $request, $id)
     {
         $request->validate([
-            'date' => 'required|date',
-            'fasilitas' => 'required|exists:fasilitas_kampus,id_fasilitas',
+            'fasilitas_id' => 'required|exists:fasilitas_kampus,id_fasilitas',
+            'tanggal_peminjaman' => 'required|date',
+            'tanggal_tenggat' => 'required|date|after_or_equal:tanggal_peminjaman',
+            'note' => 'nullable|string',
         ]);
 
-        $data = [
-            'date' => $request->date,
-            'fasilitas_id' => $request->fasilitas,
-        ];
-        Peminjam::where('id_peminjam', $id)->update($data);
+        $peminjam = Peminjam::findOrFail($id);
 
-        return redirect('/peminjam/mahasiswa')->with('success', 'Data Berhasil Di Ubah');
+        // Jika kamu ingin cek kepemilikan data oleh mahasiswa yang login
+        $user = Auth::guard('mahasiswa')->user();
+        if ($user && $user->id_mahasiswa != $peminjam->mahasiswa_id) {
+            return redirect()->back()->with('error', 'Anda tidak berhak mengedit data ini.');
+        }
+
+        $peminjam->fasilitas_id = $request->fasilitas_id;
+        $peminjam->tanggal_peminjaman = $request->tanggal_peminjaman;
+        $peminjam->tanggal_tenggat = $request->tanggal_tenggat;
+        $peminjam->note = $request->note;
+
+        // Status tetap diajukan ulang saat diedit, bisa kamu sesuaikan logikanya
+        $peminjam->status_pengajuan = 'diajukan';
+        $peminjam->status_peminjaman = 'menunggu';
+
+        $peminjam->save();
+
+        return redirect()->back()->with('success', 'Data peminjaman berhasil diperbarui.');
     }
+
 
     public function pengajuan(Request $request, $id)
     {
