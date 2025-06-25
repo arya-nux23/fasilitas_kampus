@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable();
             $table->integer('stok')->default(0);
+             $table->enum('status_pengajuan', ['diajukan', 'disetujui', 'ditolak'])->default('diajukan');
             $table->timestamps();
         });
     }

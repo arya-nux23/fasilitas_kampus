@@ -31,6 +31,7 @@ class FasilitasController extends Controller
             'nama' => 'required',
             'tempat' => 'required',
             'desk' => 'required',
+            'stok' => 'nullable',
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:4048',
         ]);
 
@@ -41,6 +42,7 @@ class FasilitasController extends Controller
             'lokasi' => $request->tempat,
             'deskripsi' => $request->desk,
             'foto' => $fotoFasilitas,
+            'stok' => $request->stok,
         ]);
         return redirect('/fasilitas')->with('success', 'Data fasilitas Berhasil Ditambah');
     }
@@ -59,6 +61,7 @@ class FasilitasController extends Controller
             'tempat' => 'required',
             'desk' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:4048',
+            'stok' => 'required|integer|min:0',
         ]);
 
         $fasilitas = Fasilitas::findOrFail($id);
@@ -79,6 +82,7 @@ class FasilitasController extends Controller
         $fasilitas->nama_fasilitas = $request->nama;
         $fasilitas->lokasi = $request->tempat;
         $fasilitas->deskripsi = $request->desk;
+        $fasilitas->stok = $request->stok;
         $fasilitas->save();
         return redirect('/fasilitas')->with('success', 'Data fasilitas berhasil diperbarui');
     }

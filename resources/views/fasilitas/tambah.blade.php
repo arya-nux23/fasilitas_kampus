@@ -32,14 +32,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label class="label">Stok</label>
+                                        <div class="form-group position-relative">
+                                            <input type="number" name="stok" class="form-control text-dark ps-5 h-58"
+                                                placeholder="Jumlah stok fasilitas">
+                                            <i
+                                                class="ri-stack-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="label">Foto</label>
                                         <div class="form-control w-100 h-100 text-center position-relative p-4 p-lg-5">
                                             <div class="product-upload d-flex justify-content-center">
                                                 <label for="foto-upload" class="file-upload mb-0">
-                                                    <span class="d-inline-block wh-110 bg-body-bg rounded-10 position-relative">
-                                                        <i class="ri-camera-line wh-38 bg-gray-div7 d-inline-block text-gray-light rounded-circle position-absolute bottom-0 end-0" style="right: -10px !important; bottom: -10px !important;"></i>
+                                                    <span
+                                                        class="d-inline-block wh-110 bg-body-bg rounded-10 position-relative">
+                                                        <i class="ri-camera-line wh-38 bg-gray-div7 d-inline-block text-gray-light rounded-circle position-absolute bottom-0 end-0"
+                                                            style="right: -10px !important; bottom: -10px !important;"></i>
                                                     </span>
                                                 </label>
                                                 <input id="foto-upload" name="foto" type="file" class="d-none">

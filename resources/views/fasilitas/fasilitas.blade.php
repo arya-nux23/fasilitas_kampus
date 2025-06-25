@@ -66,6 +66,7 @@
                                 <th scope="col">Nama Fasilitas</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Tempat</th>
+                                <th scope="col">Stok</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -84,6 +85,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $item->lokasi }}</td>
+                                    <td>{{ $item->stok }}</td>
                                     <td>
                                         <div class="dropdown action-opt">
                                             <button class="btn bg p-0" type="button" data-bs-toggle="dropdown"
