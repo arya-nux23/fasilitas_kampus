@@ -8,32 +8,43 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('peminjam.update', $item->id_peminjam) }}">
+                <form method="POST" action="{{ url('/edit/peminjam/' . $item->id_peminjam . '/mahasiswa') }}">
                     @csrf
-                    @method('PUT')
-
                     <!-- Nama Fasilitas -->
                     <div class="mb-3">
                         <label for="fasilitas_id_{{ $item->id_peminjam }}" class="form-label">Nama Fasilitas</label>
-                        <select class="form-select" id="fasilitas_id_{{ $item->id_peminjam }}" name="fasilitas_id"
-                            required>
+                        <select class="form-select" id="fasilitas_id_{{ $item->id_peminjam }}" name="fasilitas_id" required>
                             <option value="" disabled>Pilih Fasilitas</option>
-                            @foreach ($fasilitas as $a)
-                                <option value="{{ $a->id_fasilitas }}"
-                                    {{ $item->fasilitas_id == $a->id_fasilitas ? 'selected' : '' }}>
-                                    {{ $a->nama_fasilitas }}
+                            @foreach ($fasilitas as $f)
+                                <option value="{{ $f->id_fasilitas }}"
+                                    {{ $item->fasilitas_id == $f->id_fasilitas ? 'selected' : '' }}>
+                                    {{ $f->nama_fasilitas }}
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <!-- Tanggal Peminjaman -->
+                    <div class="mb-3">
+                        <label for="tanggal_peminjaman_{{ $item->id_peminjam }}" class="form-label">Tanggal Peminjaman</label>
+                        <input type="date" name="tanggal_peminjaman"
+                            class="form-control" id="tanggal_peminjaman_{{ $item->id_peminjam }}"
+                            value="{{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('Y-m-d') }}" required>
                     </div>
 
                     <!-- Tanggal Tenggat -->
                     <div class="mb-3">
                         <label for="tanggal_tenggat_{{ $item->id_peminjam }}" class="form-label">Tanggal Tenggat</label>
                         <input type="date" name="tanggal_tenggat"
-                            value="{{ \Carbon\Carbon::parse($item->tanggal_tenggat)->format('Y-m-d') }}"
-                            class="form-control" id="tanggal_tenggat_{{ $item->id_peminjam }}" required>
+                            class="form-control" id="tanggal_tenggat_{{ $item->id_peminjam }}"
+                            value="{{ \Carbon\Carbon::parse($item->tanggal_tenggat)->format('Y-m-d') }}" required>
+                    </div>
 
+                    <!-- Note -->
+                    <div class="mb-3">
+                        <label for="note_{{ $item->id_peminjam }}" class="form-label">Catatan</label>
+                        <textarea name="note" id="note_{{ $item->id_peminjam }}" class="form-control" rows="3"
+                            placeholder="Tulis catatan jika ada...">{{ $item->note }}</textarea>
                     </div>
 
                     <div class="modal-footer">
