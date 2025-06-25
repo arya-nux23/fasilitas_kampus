@@ -102,6 +102,11 @@
                                 pinjam hari ini
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="/peminjam/barang" class="menu-link">
+                                pinjaman Barang
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 {{-- <li class="menu-item">
