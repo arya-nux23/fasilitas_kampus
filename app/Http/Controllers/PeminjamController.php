@@ -30,7 +30,7 @@ class PeminjamController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'tipe' => 'required|in:fasilitas,barang',
+            'tipe' => 'required|in:fasilitas,barang',
             'tanggal' => 'required|date',
             'tenggat_hari' => 'required|integer|min:1|max:30',
             'jumlah' => 'required|integer|min:1',
@@ -82,34 +82,7 @@ class PeminjamController extends Controller
 
         return back()->with('success', 'Peminjaman berhasil dikonfirmasi sebagai sudah ajukan.');
     }
-
-    public function update(Request $request, $id)
-    {
-        // Validasi input
-        $request->validate([
-            'fasilitas_id' => 'required|exists:fasilitas_kampus,id_fasilitas',
-            'tanggal' => 'required|date',
-            'tenggat_hari' => 'required|integer|min:1|max:30',
-            'jumlah' => 'required|integer|min:1',
-        ]);
-
-        // Hitung tanggal tenggat
-        $tanggalPeminjaman = Carbon::parse($request->tanggal);
-        $tanggalTenggat = $tanggalPeminjaman->copy()->addDays($request->tenggat_hari);
-
-        // Cari data peminjaman
-        $peminjam = Peminjam::findOrFail($id);
-
-        // Update data
-        $peminjam->fasilitas_id = $request->fasilitas_id;
-        $peminjam->tanggal_peminjaman = $tanggalPeminjaman;
-        $peminjam->tanggal_tenggat = $tanggalTenggat;
-        $peminjam->jumlah = $request->jumlah;
-
-        $peminjam->save();
-
-        return redirect()->back()->with('success', 'Peminjaman fasilitas berhasil diperbarui.');
-    }
+    
 
     public function destroy($id)
     {

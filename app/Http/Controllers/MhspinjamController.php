@@ -24,35 +24,35 @@ class MhspinjamController extends Controller
     }
 
 
-public function store(Request $request)
-{
-    $request->validate([
-        'fasilitas_id' => 'required|exists:fasilitas_kampus,id_fasilitas',
-        'tanggal_peminjaman' => 'required|date',
-        'tanggal_tenggat' => 'required|date|after_or_equal:tanggal_peminjaman',
-        'note' => 'nullable|string',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'fasilitas_id' => 'required|exists:fasilitas_kampus,id_fasilitas',
+            'tanggal_peminjaman' => 'required|date',
+            'tanggal_tenggat' => 'required|date|after_or_equal:tanggal_peminjaman',
+            'note' => 'nullable|string',
+        ]);
 
-    // ✅ Cek apakah pengguna login dan punya id_mahasiswa
-    $user = Auth::guard('mahasiswa')->user();
+        // ✅ Cek apakah pengguna login dan punya id_mahasiswa
+        $user = Auth::guard('mahasiswa')->user();
 
-    if (!$user || !$user->id_mahasiswa) {
-        return redirect()->back()->with('error', 'Akun ini belum terhubung ke data mahasiswa.');
+        if (!$user || !$user->id_mahasiswa) {
+            return redirect()->back()->with('error', 'Akun ini belum terhubung ke data mahasiswa.');
+        }
+
+        $peminjam = new Peminjam();
+        $peminjam->fasilitas_id = $request->fasilitas_id;
+        $peminjam->tanggal_peminjaman = $request->tanggal_peminjaman;
+        $peminjam->tanggal_tenggat = $request->tanggal_tenggat;
+        $peminjam->note = $request->note;
+        $peminjam->status_pengajuan = 'diajukan';
+        $peminjam->status_peminjaman = 'menunggu';
+        $peminjam->mahasiswa_id = $user->id_mahasiswa;
+
+        $peminjam->save();
+
+        return redirect()->back()->with('success', 'Peminjaman berhasil ditambahkan');
     }
-
-    $peminjam = new Peminjam();
-    $peminjam->fasilitas_id = $request->fasilitas_id;
-    $peminjam->tanggal_peminjaman = $request->tanggal_peminjaman;
-    $peminjam->tanggal_tenggat = $request->tanggal_tenggat;
-    $peminjam->note = $request->note;
-    $peminjam->status_pengajuan = 'diajukan';
-    $peminjam->status_peminjaman = 'menunggu';
-    $peminjam->mahasiswa_id = $user->id_mahasiswa;
-
-    $peminjam->save();
-
-    return redirect()->back()->with('success', 'Peminjaman berhasil ditambahkan');
-}
 
 
 

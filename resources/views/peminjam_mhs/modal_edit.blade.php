@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/edit/peminjam/{{ $item->id_peminjam }}/mahasiswa">
+                <form method="POST" action="{{ route('peminjam.update', $item->id_peminjam) }}">
                     @csrf
                     @method('PUT')
 
