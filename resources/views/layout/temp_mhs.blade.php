@@ -71,7 +71,7 @@
         <div class="logo position-relative">
             <a href="index.html" class="d-block text-decoration-none">
                 <img src="{{ asset('admin') }}/assets/images/ai.jpg" alt="logo-icon" width="70" height="80">
-                <span class="logo-text fw-bold text-dark">Turbo</span>
+                <span class="logo-text fw-bold text-dark">Toolfersity</span>
             </a>
             <button
                 class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"

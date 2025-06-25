@@ -66,7 +66,7 @@
                                             </button>
                                             @if ($item->status_pengajuan === 'pending' && !$item->returned_at)
                                                 <button type="button" class="btn btn-sm btn-primary"
-                                                    title="Konfirmasi pengembalian" data-bs-toggle="modal"
+                                                    title="Konfirmasi pengajuan" data-bs-toggle="modal"
                                                     data-bs-target="#konfirmasiModal{{ $item->id_peminjam }}">
                                                     <i class="ri-checkbox-multiple-fill"></i>
                                                 </button>

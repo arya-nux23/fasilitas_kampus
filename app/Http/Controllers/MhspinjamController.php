@@ -51,17 +51,16 @@ class MhspinjamController extends Controller
         return redirect('/peminjam/mahasiswa')->with('success', 'Peminjaman berhasil ditambahkan');
     }
 
-
     public function update(Request $request, $id)
     {
         $request->validate([
             'date' => 'required|date',
-            'alat' => 'required|exists:alat,id_alat',
+            'fasilitas' => 'required|exists:fasilitas_kampus,id_fasilitas',
         ]);
 
         $data = [
             'date' => $request->date,
-            'alat_id' => $request->alat,
+            'fasilitas_id' => $request->fasilitas,
         ];
         Peminjam::where('id_peminjam', $id)->update($data);
 
