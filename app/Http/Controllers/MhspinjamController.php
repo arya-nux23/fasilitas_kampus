@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\Fasilitas;
 use App\Models\Peminjam;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class MhspinjamController extends Controller
 {
@@ -21,34 +23,66 @@ class MhspinjamController extends Controller
         return view('peminjam_mhs.view', compact('fasilitas', 'peminjam', 'title'));
     }
 
-    public function store(Request $request)
+
+public function store(Request $request)
+{
+    $request->validate([
+        'fasilitas_id' => 'required|exists:fasilitas_kampus,id_fasilitas',
+        'tanggal_peminjaman' => 'required|date',
+        'tanggal_tenggat' => 'required|date|after_or_equal:tanggal_peminjaman',
+        'note' => 'nullable|string',
+    ]);
+
+    // ✅ Cek apakah pengguna login dan punya id_mahasiswa
+    $user = Auth::guard('mahasiswa')->user();
+
+    if (!$user || !$user->id_mahasiswa) {
+        return redirect()->back()->with('error', 'Akun ini belum terhubung ke data mahasiswa.');
+    }
+
+    $peminjam = new Peminjam();
+    $peminjam->fasilitas_id = $request->fasilitas_id;
+    $peminjam->tanggal_peminjaman = $request->tanggal_peminjaman;
+    $peminjam->tanggal_tenggat = $request->tanggal_tenggat;
+    $peminjam->note = $request->note;
+    $peminjam->status_pengajuan = 'diajukan';
+    $peminjam->status_peminjaman = 'menunggu';
+    $peminjam->mahasiswa_id = $user->id_mahasiswa;
+
+    $peminjam->save();
+
+    return redirect()->back()->with('success', 'Peminjaman berhasil ditambahkan');
+}
+
+
+
+    // Opsional: method update kondisi peminjaman (misalnya dikembalikan atau barang rusak/hilang)
+    public function updateStatus(Request $request, $id)
     {
-        // Validasi input
+        $peminjam = Peminjam::findOrFail($id);
+
         $request->validate([
-            'date' => 'required|date',
-            'fasilitas' => 'required|exists:fasilitas_kampus,id_fasilitas',
+            'status_peminjaman' => 'required',
+            'kondisi_fasilitas' => 'nullable|string',
+            'returned_at' => 'nullable|date',
         ]);
 
-        // Cek apakah fasilitas sudah dipinjam di tanggal yang sama
-        $isUsed = Peminjam::where('date', $request->date)
-            ->where('fasilitas_id', $request->fasilitas)
-            ->whereNull('returned_at') // Jika belum dikembalikan
-            ->exists();
+        $peminjam->status_peminjaman = $request->status_peminjaman;
+        $peminjam->kondisi_fasilitas = $request->kondisi_fasilitas;
+        $peminjam->returned_at = $request->returned_at ? Carbon::parse($request->returned_at) : now();
 
-        if ($isUsed) {
-            return redirect()->back()->with('error', 'Fasilitas ini sedang dipakai pada tanggal tersebut.');
+        // Cek apakah perlu diberi catatan sanksi
+        if ($peminjam->kondisi_fasilitas === 'rusak' || $peminjam->kondisi_fasilitas === 'hilang') {
+            $peminjam->catatan_sanksi = 'Barang rusak atau hilang';
         }
 
-        $mahasiswa = Auth::guard('mahasiswa')->user();
+        if ($peminjam->returned_at > $peminjam->tanggal_tenggat) {
+            $peminjam->catatan_sanksi = 'Pengembalian terlambat';
+        }
 
-        // Simpan data peminjaman
-        Peminjam::create([
-            'date' => $request->date,
-            'fasilitas_id' => $request->fasilitas,
-            'mahasiswa_id' => $mahasiswa->id_mahasiswa,
-        ]);
+        $peminjam->save();
 
-        return redirect('/peminjam/mahasiswa')->with('success', 'Peminjaman berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Status peminjaman diperbarui.');
     }
 
     public function update(Request $request, $id)

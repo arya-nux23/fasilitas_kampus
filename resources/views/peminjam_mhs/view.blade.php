@@ -57,7 +57,7 @@
                                 </th>
                                 <th scope="col">Nama Mahasiswa</th>
                                 <th scope="col">Nama Fasilitas</th>
-                                <th scope="col">Tangal</th>
+                                <th scope="col">Tanggal Tenggat</th>
                                 <th scope="col">Admin</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -68,7 +68,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td><span class="badge text-bg-primary">{{ $item->mahasiswa->nama_mhs }}</span></td>
                                     <td>{{ $item->fasilitas->nama_fasilitas }}</td>
-                                    <td>{{ $item->date }}</td>
+                                    <td>{{ $item->tanggal_tenggat }}</td>
                                     <td>
                                         @if ($item->returned_at)
                                             <span class="badge text-bg-primary" title="Sudah dikonfirmasi oleh admin">
@@ -101,236 +101,12 @@
                                     </td>
                                 </tr>
                                 <!-- Modal Edit Peminjaman -->
-                                <div class="modal fade" id="modalEdit{{ $item->id_peminjam }}" tabindex="-1"
-                                    aria-labelledby="modalEdit" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header bg-primary text-white">
-                                                <h5 class="modal-title" id="modalEdit">edit Peminjaman</h5>
-                                                <button type="button" class="btn-close btn-close-white"
-                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST"
-                                                    action="/edit/peminjam/{{ $item->id_peminjam }}/mahasiswa">
-                                                    @csrf
-                                                    <!-- Dropdown untuk nama alat -->
-                                                    <div class="mb-3">
-                                                        <label for="fasilitas_id" class="form-label">Nama Fasilitas</label>
-                                                        <select class="form-select" id="fasilitas_id" name="fasilitas"
-                                                            required>
-                                                            <option value="" disabled selected>Pilih Fasilitas
-                                                            </option>
-                                                            @foreach ($fasilitas as $a)
-                                                                <option value="{{ $a->id_fasilitas }}"
-                                                                    {{ $item->fasilitas_id == $a->id_fasilitas ? 'selected' : '' }}>
-                                                                    {{ $a->nama_fasilitas }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tanggal" class="form-label">Tanggal</label>
-                                                        <input type="date" name="date" value="{{ $item->date }}"
-                                                            class="form-control" id="tanggal">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Batal</button>
-                                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('peminjam_mhs.modal_edit')
 
                                 {{-- modal pengembalian --}}
-                                <div class="modal fade" id="KembaliModal{{ $item->id_peminjam }}" tabindex="-1"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5">Ajukan Peminjaman</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST"
-                                                    action="/peminjam/{{ $item->id_peminjam }}/pengajuan">
-                                                    @csrf
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="alert alert-primary">
-                                                                Anda akan mengubah status peminjaman ini menjadi 'sudah
-                                                                di ajukan'. Kolom 'jam di ajukan'
-                                                                akan otomatis
-                                                                diisi dengan waktu setelah Anda mengeklik tombol
-                                                                'di ajukankan'. Mohon isi kolom catatan
-                                                                jika ada hal yang
-                                                                ingin disampaikan.
-                                                            </div>
-
-                                                            <div class="mb-3">
-                                                                <label for="note" class="form-label">Catatan:</label>
-                                                                <textarea class="form-control" name="note" id="note" placeholder="Masukan catatan (opsional).."
-                                                                    rows="5"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary close-button"
-                                                            data-bs-dismiss="modal">Tutup</button>
-                                                        <button type="submit"
-                                                            class="btn btn-success btn-returned">Pinjam</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('peminjam_mhs.modal_pengembalian')
                                 {{-- modal awal detail data peminjam --}}
-                                <div class="modal fade" id="detailPeminjam{{ $item->id_peminjam }}" tabindex="-1"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5">Detail Peminjaman</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-md-12 col-lg-6">
-                                                        <div class="alert alert-primary">
-                                                            Data di bawah adalah detail data mahasiswa.
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Nomor Identitas
-                                                                        Mahasiswa</label>
-                                                                    <input class="form-control"
-                                                                        id="student_identification_number"
-                                                                        value="{{ $item->mahasiswa->nim_mhs }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Nama Mahasiswa</label>
-                                                                    <input class="form-control" id="student_name"
-                                                                        value="{{ $item->mahasiswa->nama_mhs }}" disabled>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Program Studi</label>
-                                                                    <div class="input-group">
-                                                                        <span class="d-block input-group-text"><i
-                                                                                class="bi bi-bookmarks-fill"></i></span>
-                                                                        <input class="form-control"
-                                                                            id="student_phone_number"
-                                                                            value="{{ $item->mahasiswa->jurusan->nama_jurusan ?? '-' }}"
-                                                                            disabled>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="mb-3 text-center">
-                                                                    <label class="form-label d-block">Gambar Fasilitas</label>
-                                                                    <img src="{{ asset('storage/' . $item->fasilitas->foto) }}"
-                                                                        alt="Foto Fasilitas" class="img-fluid rounded shadow"
-                                                                        style="max-height: 300px; object-fit: cover;">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-6">
-                                                        <div class="alert alert-primary">
-                                                            Data di bawah adalah detail data peminjaman.
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-lg-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Nama Fasilitas</label>
-                                                                    <div class="input-group">
-                                                                        <span class="d-block input-group-text"><i
-                                                                                class="bi bi-collection-fill"></i></span>
-                                                                        <input class="form-control" id="nama_fasilitas"
-                                                                            value="{{ $item->fasilitas->nama_fasilitas }}"
-                                                                            disabled>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-lg-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Tanggal</label>
-                                                                    <div class="input-group">
-                                                                        <span class="d-block input-group-text"><i
-                                                                                class="bi bi-calendar-fill"></i></span>
-                                                                        <input class="form-control" id="date"
-                                                                            value="{{ $item->date }}" disabled>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Status</label>
-                                                                    @php
-                                                                        if (
-                                                                            $item->status_pengajuan === 'selesai' &&
-                                                                            $item->returned_at
-                                                                        ) {
-                                                                            $status = 'sedang di pakai';
-                                                                        } elseif (
-                                                                            $item->status_pengajuan === 'pending' &&
-                                                                            !$item->returned_at
-                                                                        ) {
-                                                                            $status =
-                                                                                'Sudah diajukan dan menunggu konfirmasi';
-                                                                        } else {
-                                                                            $status =
-                                                                                'silahkan ajukan permintaan pinjaman';
-                                                                        }
-                                                                    @endphp
-                                                                    <input class="form-control" id="is_returned"
-                                                                        value="{{ $status }}" disabled>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Catatan</label>
-                                                                    <textarea class="form-control" id="note" disabled style="height: 100px">{{ $item->note }}</textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary close-button"
-                                                        data-bs-dismiss="modal">Tutup</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('peminjam_mhs.modal_detail')
                                 {{-- modal akhir detail data peminjam --}}
                             @endforeach
 
@@ -342,40 +118,5 @@
     </div>
 
     <!-- Modal Tambah Peminjaman -->
-    <div class="modal fade" id="modalTambahPeminjaman" tabindex="-1" aria-labelledby="modalTambahLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="modalTambahLabel">Tambah Peminjaman</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="/peminjam/tambah">
-                        @csrf
-                        <!-- Dropdown untuk nama alat -->
-                        <div class="mb-3">
-                            <label for="fasilitas_id" class="form-label">Nama Fasilitas</label>
-                            <select class="form-select" id="fasilitas_id" name="fasilitas" required>
-                                <option value="" disabled selected>Pilih Fasilitas</option>
-                                @foreach ($fasilitas as $item)
-                                    <option value="{{ $item->id_fasilitas }}">{{ $item->nama_fasilitas }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" name="date" class="form-control" id="tanggal">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    @include('peminjam_mhs.modal_tambah')
 @endsection

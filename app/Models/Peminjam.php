@@ -30,6 +30,7 @@ class Peminjam extends Model
         return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id_mahasiswa');
     }
 
+
     // Relasi ke fasilitas
     public function fasilitas()
     {

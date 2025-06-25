@@ -60,6 +60,7 @@ Route::middleware(['admin'])->group(function () {
     // peminjam admin
     Route::get('/pinjam', [PeminjamController::class, 'index']);
     Route::post('/peminjaman/{id}/konfirmasi', [PeminjamController::class, 'konfirmasi']);
+    Route::put('/edit/peminjam/{id}/mahasiswa', [PeminjamController::class, 'update'])->name('peminjam.update');
     Route::get('/hapus/{id}/pinjam', [PeminjamController::class, 'destroy']);
 
     Route::get('/operator', [AdminController::class, 'index'])->name('operator');
@@ -80,7 +81,7 @@ Route::middleware(['mahasiswa'])->group(function () {
 
     // peminjam mahasiswa
     Route::get('/peminjam/mahasiswa', [MhspinjamController::class, 'index'])->name('/peminjam/mahasiswa');
-    Route::post('/peminjam/tambah', [MhspinjamController::class, 'store']);
+    Route::post('/peminjam/tambah', [MhspinjamController::class, 'store'])->name('peminjam.store');
     Route::post('/edit/peminjam/{id}/mahasiswa', [MhspinjamController::class, 'update']);
     Route::post('/peminjam/{id}/pengajuan', [MhspinjamController::class, 'pengajuan']);
 
