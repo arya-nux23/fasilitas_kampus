@@ -59,7 +59,7 @@ class BarangpinjamController extends Controller
         $barang->stok -= $request->jumlah;
         $barang->save();
 
-        return redirect('/peminjam/mahasiswa')->with('success', 'Peminjaman berhasil ditambahkan');
+        return redirect('/peminjam/barang')->with('success', 'Peminjaman berhasil ditambahkan');
     }
 
 
