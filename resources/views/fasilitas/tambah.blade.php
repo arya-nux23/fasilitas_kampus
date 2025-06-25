@@ -32,17 +32,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label class="label">Stok</label>
-                                        <div class="form-group position-relative">
-                                            <input type="number" name="stok" class="form-control text-dark ps-5 h-58"
-                                                placeholder="Jumlah stok fasilitas">
-                                            <i
-                                                class="ri-stack-line position-absolute top-50 start-0 translate-middle-y fs-20 text-gray-light ps-20"></i>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="label">Foto</label>

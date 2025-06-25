@@ -244,11 +244,9 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="mb-3 text-center">
-                                                                    <label class="form-label d-block">Gambar
-                                                                        Fasilitas</label>
+                                                                    <label class="form-label d-block">Gambar Fasilitas</label>
                                                                     <img src="{{ asset('storage/' . $item->fasilitas->foto) }}"
-                                                                        alt="Foto Fasilitas"
-                                                                        class="img-fluid rounded shadow"
+                                                                        alt="Foto Fasilitas" class="img-fluid rounded shadow"
                                                                         style="max-height: 300px; object-fit: cover;">
                                                                 </div>
                                                             </div>
@@ -362,17 +360,10 @@
                             <select class="form-select" id="fasilitas_id" name="fasilitas" required>
                                 <option value="" disabled selected>Pilih Fasilitas</option>
                                 @foreach ($fasilitas as $item)
-                                    <option value="{{ $item->id_fasilitas }}">{{ $item->nama_fasilitas }} - Stok
-                                        {{ $item->stok }}</option>
+                                    <option value="{{ $item->id_fasilitas }}">{{ $item->nama_fasilitas }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="jumlah" class="form-label">Jumlah Stok yang Dibutuhkan</label>
-                            <input type="number" name="jumlah" class="form-control" id="jumlah"
-                                placeholder="Masukkan jumlah" min="1" required>
-                        </div>
-
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
                             <input type="date" name="date" class="form-control" id="tanggal">
