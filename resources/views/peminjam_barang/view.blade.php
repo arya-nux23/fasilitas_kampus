@@ -210,7 +210,7 @@ aria-hidden="true">
                 aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/peminjam/tambah">
+            <form method="POST" action="/peminjam/tambah/barang">
                 @csrf
                 <!-- Dropdown untuk nama barang -->
                 <div class="mb-3">

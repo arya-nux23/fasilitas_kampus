@@ -87,7 +87,7 @@ Route::middleware(['mahasiswa'])->group(function () {
 
     // peminjam mahasiswa
     Route::get('/peminjam/barang', [BarangpinjamController::class, 'index'])->name('/peminjam/barang');
-    Route::post('/peminjam/tambah', [BarangpinjamController::class, 'store']);
+    Route::post('/peminjam/tambah/barang', [BarangpinjamController::class, 'store']);
     Route::post('/edit/peminjam/{id}/barang', [BarangpinjamController::class, 'update']);
     Route::post('/peminjam/{id}/pengajuan', [BarangpinjamController::class, 'pengajuan']);
 
