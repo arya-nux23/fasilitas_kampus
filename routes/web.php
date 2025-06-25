@@ -11,6 +11,7 @@ use App\Http\Controllers\MhspinjamController;
 use App\Http\Controllers\Page\PagesController;
 use App\Http\Controllers\PeminjamController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangpinjamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,13 @@ Route::post('/login', [LoginController::class, 'login_action'])->name('login');
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
-
+    // barang
+    Route::get('/barang', [BarangController::class, 'index']);
+    Route::get('/tambah/barang', [BarangController::class, 'create']);
+    Route::post('/tambah/barang', [BarangController::class, 'store']);
+    Route::get('/edit/{id}/barang', [BarangController::class, 'edit']);
+    Route::post('/edit/{id}/barang', [BarangController::class, 'update']);
+    Route::get('/hapus/{id}/barang', [BarangController::class, 'destroy']);
 
     // fasilitas
     Route::get('/fasilitas', [FasilitasController::class, 'index']);
@@ -74,16 +81,16 @@ Route::middleware(['mahasiswa'])->group(function () {
 
     // peminjam mahasiswa
     Route::get('/peminjam/mahasiswa', [MhspinjamController::class, 'index'])->name('/peminjam/mahasiswa');
-    Route::post('/peminjam/tambah', [MhspinjamController::class, 'store'])->name('peminjam.store');
-    Route::post('/edit/peminjam/{id}/mahasiswa', [MhspinjamController::class, 'update'])->name('peminjam.update');
+    Route::post('/peminjam/tambah', [MhspinjamController::class, 'store']);
+    Route::post('/edit/peminjam/{id}/mahasiswa', [MhspinjamController::class, 'update']);
     Route::post('/peminjam/{id}/pengajuan', [MhspinjamController::class, 'pengajuan']);
-    // barang
-    Route::get('/barang', [BarangController::class, 'index']);
-    Route::get('/tambah/barang', [BarangController::class, 'create']);
-    Route::post('/tambah/barang', [BarangController::class, 'store']);
-    Route::get('/edit/{id}/barang', [BarangController::class, 'edit']);
-    Route::post('/edit/{id}/barang', [BarangController::class, 'update']);
-    Route::get('/hapus/{id}/barang', [BarangController::class, 'destroy']);
+
+    // peminjam mahasiswa
+    Route::get('/peminjam/barang', [BarangpinjamController::class, 'index'])->name('/peminjam/barang');
+    Route::post('/peminjam/tambah/barang', [BarangpinjamController::class, 'store']);
+    Route::post('/edit/peminjam/{id}/barang', [BarangpinjamController::class, 'update']);
+    Route::post('/peminjam/{id}/pengajuan', [BarangpinjamController::class, 'pengajuan']);
+
     // setting Akun Mahasiswa
     Route::get('/setting', [MhsettingController::class, 'index']);
 });
