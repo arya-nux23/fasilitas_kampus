@@ -11,6 +11,7 @@ use App\Http\Controllers\MhspinjamController;
 use App\Http\Controllers\Page\PagesController;
 use App\Http\Controllers\PeminjamController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangpinjamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -83,6 +84,12 @@ Route::middleware(['mahasiswa'])->group(function () {
     Route::post('/peminjam/tambah', [MhspinjamController::class, 'store']);
     Route::post('/edit/peminjam/{id}/mahasiswa', [MhspinjamController::class, 'update']);
     Route::post('/peminjam/{id}/pengajuan', [MhspinjamController::class, 'pengajuan']);
+
+    // peminjam mahasiswa
+    Route::get('/peminjam/barang', [BarangpinjamController::class, 'index'])->name('/peminjam/barang');
+    Route::post('/peminjam/tambah', [BarangpinjamController::class, 'store']);
+    Route::post('/edit/peminjam/{id}/barang', [BarangpinjamController::class, 'update']);
+    Route::post('/peminjam/{id}/pengajuan', [BarangpinjamController::class, 'pengajuan']);
 
     // setting Akun Mahasiswa
     Route::get('/setting', [MhsettingController::class, 'index']);

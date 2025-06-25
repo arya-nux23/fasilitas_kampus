@@ -95,7 +95,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="/barang" class="menu-link">
-                        <i data-feather="home" class="menu-icon tf-icons"></i>
+                        <i data-feather="box" class="menu-icon tf-icons"></i>
                         <span class="title">Barang</span>
                     </a>
                 </li>
