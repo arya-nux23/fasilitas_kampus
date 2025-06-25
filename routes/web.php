@@ -36,13 +36,7 @@ Route::post('/login', [LoginController::class, 'login_action'])->name('login');
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    // barang
-    Route::get('/barang', [BarangController::class, 'index']);
-    Route::get('/tambah/barang', [BarangController::class, 'create']);
-    Route::post('/tambah/barang', [BarangController::class, 'store']);
-    Route::get('/edit/{id}/barang', [BarangController::class, 'edit']);
-    Route::post('/edit/{id}/barang', [BarangController::class, 'update']);
-    Route::get('/hapus/{id}/barang', [BarangController::class, 'destroy']);
+
 
     // fasilitas
     Route::get('/fasilitas', [FasilitasController::class, 'index']);
@@ -83,7 +77,13 @@ Route::middleware(['mahasiswa'])->group(function () {
     Route::post('/peminjam/tambah', [MhspinjamController::class, 'store'])->name('peminjam.store');
     Route::post('/edit/peminjam/{id}/mahasiswa', [MhspinjamController::class, 'update'])->name('peminjam.update');
     Route::post('/peminjam/{id}/pengajuan', [MhspinjamController::class, 'pengajuan']);
-
+    // barang
+    Route::get('/barang', [BarangController::class, 'index']);
+    Route::get('/tambah/barang', [BarangController::class, 'create']);
+    Route::post('/tambah/barang', [BarangController::class, 'store']);
+    Route::get('/edit/{id}/barang', [BarangController::class, 'edit']);
+    Route::post('/edit/{id}/barang', [BarangController::class, 'update']);
+    Route::get('/hapus/{id}/barang', [BarangController::class, 'destroy']);
     // setting Akun Mahasiswa
     Route::get('/setting', [MhsettingController::class, 'index']);
 });

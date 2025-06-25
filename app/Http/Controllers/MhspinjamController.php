@@ -56,34 +56,6 @@ class MhspinjamController extends Controller
 
 
 
-    // Opsional: method update kondisi peminjaman (misalnya dikembalikan atau barang rusak/hilang)
-    public function updateStatus(Request $request, $id)
-    {
-        $peminjam = Peminjam::findOrFail($id);
-
-        $request->validate([
-            'status_peminjaman' => 'required',
-            'kondisi_fasilitas' => 'nullable|string',
-            'returned_at' => 'nullable|date',
-        ]);
-
-        $peminjam->status_peminjaman = $request->status_peminjaman;
-        $peminjam->kondisi_fasilitas = $request->kondisi_fasilitas;
-        $peminjam->returned_at = $request->returned_at ? Carbon::parse($request->returned_at) : now();
-
-        // Cek apakah perlu diberi catatan sanksi
-        if ($peminjam->kondisi_fasilitas === 'rusak' || $peminjam->kondisi_fasilitas === 'hilang') {
-            $peminjam->catatan_sanksi = 'Barang rusak atau hilang';
-        }
-
-        if ($peminjam->returned_at > $peminjam->tanggal_tenggat) {
-            $peminjam->catatan_sanksi = 'Pengembalian terlambat';
-        }
-
-        $peminjam->save();
-
-        return redirect()->back()->with('success', 'Status peminjaman diperbarui.');
-    }
 
     public function update(Request $request, $id)
     {
