@@ -31,7 +31,6 @@ class FasilitasController extends Controller
             'nama' => 'required',
             'tempat' => 'required',
             'desk' => 'required',
-            'stok' => 'nullable',
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:4048',
         ]);
 
@@ -42,7 +41,6 @@ class FasilitasController extends Controller
             'lokasi' => $request->tempat,
             'deskripsi' => $request->desk,
             'foto' => $fotoFasilitas,
-            'stok' => $request->stok,
         ]);
         return redirect('/fasilitas')->with('success', 'Data fasilitas Berhasil Ditambah');
     }

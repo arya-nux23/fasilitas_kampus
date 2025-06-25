@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Peminjam;
+use App\Models\barangPinjam;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +17,9 @@ class BarangpinjamController extends Controller
     public function index()
     {
         $title = 'Mahasiswa|Peminjam';
-        $mahasiswa = Auth::guard('mahasiswa')->user();
-        $peminjam = Peminjam::with('barang') // pastikan relasi barang dimuat
-            ->where('mahasiswa_id', $mahasiswa->id_mahasiswa)
-            ->get();
+        $peminjam = BarangPinjam::with('barang', 'mahasiswa')->latest()->get();
         $barang = Barang::all();
-        return view('peminjam_barang.view', compact('barang', 'peminjam', 'title'));
+        return view('peminjam_barang.view', compact( 'peminjam', 'title', 'barang'));
     }
 
     public function store(Request $request)
@@ -45,7 +42,7 @@ class BarangpinjamController extends Controller
 
         $fasilitasId = DB::table('fasilitas_kampus')->value('id_fasilitas'); // ambil satu yang tersedia
 
-        Peminjam::create([
+        BarangPinjam::create([
             'tanggal_peminjaman' => $request->date,
             'tanggal_tenggat' => $request->tanggal_tenggat,
             'catatan_sanksi' => $request->catatan_sanksi,
