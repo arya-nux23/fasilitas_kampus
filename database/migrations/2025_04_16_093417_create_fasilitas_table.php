@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('lokasi');
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable();
-            $table->enum('status_pengajuan', ['diajukan', 'disetujui', 'ditolak'])->default('diajukan');
             $table->timestamps();
         });
     }
