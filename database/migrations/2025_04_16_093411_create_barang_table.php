@@ -11,24 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fasilitas_kampus', function (Blueprint $table) {
-            $table->id('id_fasilitas');
-            $table->string('nama_fasilitas');
+        Schema::create('barang', function (Blueprint $table) {
+            $table->id('id_barang');
+            $table->string('nama_barang');
             $table->string('lokasi');
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable();
-             $table->enum('status_pengajuan', ['diajukan', 'disetujui', 'ditolak'])->default('diajukan');
+            $table->integer('stok')->default(0);
             $table->enum('status_pengajuan', ['diajukan', 'disetujui', 'ditolak'])->default('diajukan');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('fasilitas_kampus');
+        Schema::dropIfExists('barang');
     }
 };

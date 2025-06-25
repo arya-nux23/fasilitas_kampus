@@ -38,6 +38,7 @@ return new class extends Migration
             // Relasi ke fasilitas dan mahasiswa
             $table->foreignId('fasilitas_id')->constrained('fasilitas_kampus', 'id_fasilitas')->onDelete('cascade');
             $table->foreignId('mahasiswa_id')->constrained('mahasiswa', 'id_mahasiswa')->onDelete('cascade');
+            $table->foreignId('barang_id')->constrained('barang', 'id_barang')->onDelete('cascade');
 
             // created_at & updated_at
             $table->timestamps();

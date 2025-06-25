@@ -35,4 +35,9 @@ class Peminjam extends Model
     {
         return $this->belongsTo(Fasilitas::class, 'fasilitas_id', 'id_fasilitas');
     }
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id', 'id_barang');
+    }
 }

@@ -93,7 +93,12 @@
                 <li class="menu-title small text-uppercase">
                     <span class="menu-title-text">DATA</span>
                 </li>
-
+                <li class="menu-item">
+                    <a href="/barang" class="menu-link">
+                        <i data-feather="home" class="menu-icon tf-icons"></i>
+                        <span class="title">Barang</span>
+                    </a>
+                </li>
                 <li class="menu-item">
                     <a href="/fasilitas" class="menu-link">
                         <i data-feather="home" class="menu-icon tf-icons"></i>
